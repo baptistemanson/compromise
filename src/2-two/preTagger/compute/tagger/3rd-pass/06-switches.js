@@ -1,4 +1,4 @@
-const env = typeof process === 'undefined' || !process.env ? self.env || {} : process.env // eslint-disable-line
+const env = {} // eslint-disable-line
 import adhoc from './_adhoc.js'
 const prefix = /^(under|over|mis|re|un|dis|semi)-?/
 

@@ -1,6 +1,6 @@
 import doesMatch from './04-doesMatch.js'
 
-const env = typeof process === 'undefined' || !process.env ? self.env || {} : process.env
+const env = {}
 const log = msg => {
   if (env.DEBUG_MATCH) {
     console.log(`\n  \x1b[32m ${msg} \x1b[0m`) // eslint-disable-line
