@@ -1,4 +1,4 @@
-const env = typeof process === 'undefined' ? self.env || {} : process.env // eslint-disable-line
+const env = typeof process === 'undefined' || !process.env ? self.env || {} : process.env // eslint-disable-line
 import adhoc from './_adhoc.js'
 const prefix = /^(under|over|mis|re|un|dis|semi)-?/
 
@@ -9,7 +9,7 @@ const checkWord = (term, obj) => {
   let str = term.normal || term.implicit
   const found = obj[str]
   if (found && env.DEBUG_TAGS) {
-    console.log(`\n  \x1b[2m\x1b[3m     ↓ - '${str}' \x1b[0m`)//eslint-disable-line
+    console.log(`\n  \x1b[2m\x1b[3m     ↓ - '${str}' \x1b[0m`) //eslint-disable-line
   }
   return found
 }
@@ -26,7 +26,7 @@ const checkTag = (term, obj = {}, tagSet) => {
   })
   let found = tags.find(tag => obj[tag])
   if (found && env.DEBUG_TAGS) {
-    console.log(`\n  \x1b[2m\x1b[3m      ↓ - '${term.normal}' (#${found})  \x1b[0m`)//eslint-disable-line
+    console.log(`\n  \x1b[2m\x1b[3m      ↓ - '${term.normal}' (#${found})  \x1b[0m`) //eslint-disable-line
   }
   found = obj[found]
   return found
@@ -41,7 +41,7 @@ const pickTag = function (terms, i, clues, model) {
   let tag = checkWord(terms[i + 1], clues.afterWords)
   // look <- left word, second
   tag = tag || checkWord(terms[i - 1], clues.beforeWords)
-  // look <- left tag 
+  // look <- left tag
   tag = tag || checkTag(terms[i - 1], clues.beforeTags, tagSet)
   // look -> right tag
   tag = tag || checkTag(terms[i + 1], clues.afterTags, tagSet)
@@ -74,12 +74,12 @@ const doSwitches = function (terms, i, world) {
     // did we find anything?
     if (tag) {
       if (env.DEBUG_TAGS) {
-        console.log(`\n  \x1b[32m [variable] - '${str}' - (${form}) → #${tag} \x1b[0m\n`)//eslint-disable-line
+        console.log(`\n  \x1b[32m [variable] - '${str}' - (${form}) → #${tag} \x1b[0m\n`) //eslint-disable-line
       }
       // setTag(term, tag, model)
       setTag([term], tag, world, null, `3-[variable]`)
     } else if (env.DEBUG_TAGS) {
-      console.log(`\n -> X  - '${str}'  : ${form}  `)//eslint-disable-line
+      console.log(`\n -> X  - '${str}'  : ${form}  `) //eslint-disable-line
     }
   }
 }

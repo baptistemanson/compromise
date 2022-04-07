@@ -1,6 +1,6 @@
 import doesMatch from './04-doesMatch.js'
 
-const env = typeof process === 'undefined' ? self.env || {} : process.env
+const env = typeof process === 'undefined' || !process.env ? self.env || {} : process.env
 const log = msg => {
   if (env.DEBUG_MATCH) {
     console.log(`\n  \x1b[32m ${msg} \x1b[0m`) // eslint-disable-line
@@ -81,7 +81,7 @@ export const doOrBlock = function (state, skipN = 0) {
       // console.log('=-=-=-= bad -=-=-=-')
       // console.dir(state.regs, { depth: 5 })
       return false
-    }// } else {
+    } // } else {
     //   // console.log('=-=-=-= good -=-=-=-')
     //   // console.dir(state.regs[0], { depth: 5 })
     // }
